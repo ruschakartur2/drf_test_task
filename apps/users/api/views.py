@@ -6,7 +6,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
 from django.contrib.auth.models import update_last_login
-from apps.users.api.serializers import UserRegistrationSerializer, UserLoginSerializer, UserActivitySerializer
+from apps.users.api.serializers import UserRegistrationSerializer, UserLoginSerializer, UserActivitySerializer, \
+    UserDetailSerializer
 
 User = get_user_model()
 
@@ -33,7 +34,8 @@ class UserLoginAPIView(ObtainAuthToken):
 
         token = Token.objects.get(key=response.data['token'])
         update_last_login(None, token.user)
-        return Response({'token': token.key})
+        user = UserDetailSerializer(token.user)
+        return Response({'token': token.key, 'user': user.data})
 
 
 class UserActivityView(generics.RetrieveAPIView):

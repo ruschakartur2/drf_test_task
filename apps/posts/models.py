@@ -19,7 +19,9 @@ class Post(models.Model):
     likes = models.ManyToManyField(get_user_model(), related_name='blogpost_like')
 
     def __str__(self):
-        """Function to naming model"""
+        """
+        Method to naming Post model
+        """
         return self.title
 
 
@@ -27,3 +29,9 @@ class Like(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name='post_likes')
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='user_likes')
     liked_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        """
+        Method to naming Like model
+        :return:
+        """

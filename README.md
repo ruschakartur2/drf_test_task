@@ -2,7 +2,7 @@
 
 Clone repository
 ```
-> git clone
+> git clone https://github.com/ruschakartur2/drf_test_task
 ```
 
 Install dependencies
