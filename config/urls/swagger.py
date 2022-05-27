@@ -5,9 +5,9 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Developer Wikipedia",
+        title="",
         default_version='v1',
-        description="API for developer wikipedia",
+        description="",
         license=openapi.License(name="BSD License")
     ),
     public=True,
