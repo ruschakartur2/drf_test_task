@@ -19,7 +19,6 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DB_NAME: ${{ secrets.DB_NAME }}
           DEBUG: ${{ secrets.DEBUG }}
-          GITHUB_WORKFLOW: ${{ secrets.GITHUB_WORKFLOW }}
           
     services:
       postgres:
