@@ -33,5 +33,6 @@ class Like(models.Model):
     def __str__(self):
         """
         Method to naming Like model
-        :return:
+        :return: str model representation
         """
+        return f'Like to {self.post.title}'

@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from apps.posts.api.serializers import PostSerializer, LikeSerializer
+from apps.posts.api.serializers import PostSerializer
 from apps.posts.models import Post, Like
 
 
@@ -25,13 +25,16 @@ class PostViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['get'])
     def like(self, request, pk):
-        post = Post.objects.get(id=pk)
-        liked_obj = Like.objects.filter(post=post, user=request.user)
-        if liked_obj.exists():
-            liked_obj.delete()
-            return Response({'message': 'Post was successfully unliked'})
-        Like.objects.create(post=post, user=request.user)
-        return Response({'message': 'Post was successfully liked'})
+        try:
+            post = Post.objects.get(id=pk)
+            liked_obj = Like.objects.filter(post=post, user=request.user)
+            if liked_obj.exists():
+                liked_obj.delete()
+                return Response({'message': 'Post was successfully unliked'})
+            Like.objects.create(post=post, user=request.user)
+            return Response({'message': 'Post was successfully liked'})
+        except Exception as e:
+            return Response({'message': f'{e}'})
 
 
 class PostAnalyticView(APIView):

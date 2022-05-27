@@ -42,6 +42,12 @@ class UserLoginSerializer(serializers.Serializer):
     """
     Serializer for user authentication object
     """
+
+    def __init__(self, *args, **kwargs):
+        """Initialize serializer"""
+        super(UserLoginSerializer, self).__init__(*args, **kwargs)
+        self.user = None
+
     email = serializers.CharField(required=True)
     password = serializers.CharField(
         required=True,
@@ -53,11 +59,6 @@ class UserLoginSerializer(serializers.Serializer):
         """Validate and authenticate the user"""
         email = attrs.get('email')
         password = attrs.get('password')
-
-        def __init__(self, *args, **kwargs):
-            """Initialize serializer"""
-            super(UserLoginSerializer, self).__init__(*args, **kwargs)
-            self.user = None
 
         self.user = authenticate(
             request=self.context.get('request'),
