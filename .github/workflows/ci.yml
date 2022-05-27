@@ -49,7 +49,8 @@ jobs:
           pip install -r requirements.txt
       - name: Make migrations
         run: |
-          python manage.py makemigrations
+          python manage.py makemigrations post
+          python manage.py makemigrations users
       - name: Migrate
         run: |
           python manage.py migrate
