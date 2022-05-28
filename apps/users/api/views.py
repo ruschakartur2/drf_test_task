@@ -39,6 +39,9 @@ class UserLoginAPIView(ObtainAuthToken):
 
 
 class UserActivityView(generics.RetrieveAPIView):
+    """
+    Endpoint to check user activity
+    """
     serializer_class = UserActivitySerializer
     authentication_classes = [authentication.TokenAuthentication, ]
     permission_classes = [IsAuthenticated]

@@ -24,8 +24,15 @@ class PostViewSet(viewsets.ModelViewSet):
         """Create a new post"""
         serializer.save(author=self.request.user)
 
+
     @action(detail=True, methods=['get'])
     def like(self, request, pk):
+        """
+        Endpoint to like and unlike post
+        :param request: default request
+        :param pk: post pk
+        :return: message with like or unlike
+        """
         try:
             post = Post.objects.get(id=pk)
             liked_obj = Like.objects.filter(post=post, user=request.user)
