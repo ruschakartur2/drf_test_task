@@ -9,8 +9,8 @@ from apps.users.factories.token_factory import TokenFactory
 from apps.users.factories.user_factory import UserFactory
 
 
-class LikePostAPITests(TestCase):
-    """Test the post create API"""
+class LikeUnlikePostAPITests(TestCase):
+    """Tests to the post's likes and unlikes API"""
 
     def setUp(self) -> None:
         self.client = APIClient()

@@ -21,7 +21,6 @@ class CreatePostAPITests(TestCase):
         self.token = TokenFactory()
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + str(self.token))
 
-
     def test_create_new_post_successful(self):
         payload = {
             "title": "testtitle",

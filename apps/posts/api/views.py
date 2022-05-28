@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.db.models import Count
 from rest_framework import viewsets, authentication
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
@@ -45,12 +46,16 @@ class PostAnalyticView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
-        data = []
+        date = {}
         start_date = self.request.query_params.get('start_date', None)
         end_date = self.request.query_params.get('end_date', datetime.now())
         likes = Like.objects.all()
         if start_date:
             likes = Like.objects.filter(liked_at__range=[start_date, end_date])
-        for like in likes:
-            data.append({f'{like.liked_at.date()}': {'likes_number': likes.filter(liked_at=like.liked_at).count()}})
-        return Response(data)
+
+        likes_counter = likes \
+            .values('liked_at__date') \
+            .annotate(likes_number=Count('id'))
+        for like in likes_counter:
+            date[f"{like['liked_at__date']}"] = {'likes_count': like['likes_number']}
+        return Response(date)
